@@ -1,0 +1,62 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+
+  coinhub:
+    image: rubykube/coinhub
+
+  redis:
+    image: redis:4-alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3.7-alpine
+    restart: always
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: rabbitmq.wb.local'
+      traefik.port: 15672
+
+  vault:
+    image: vault:1.0.1
+    restart: always
+    environment:
+      SKIP_SETCAP: 1
+      VAULT_TOKEN: changeme
+      VAULT_DEV_ROOT_TOKEN_ID: changeme
+      VAULT_ADDR: http://vault:8200
+
+  ranger:
+    build:
+      context: ../app/peatio
+    depends_on:
+      - rabbitmq
+    env_file:
+      - ../config/ranger.env
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: ws.ranger.wb.local'
+      traefik.port: 8080
+    command: bash -c "bundle exec peatio service start ranger"
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: mail.wb.local'
+      traefik.port: 1080
+
+volumes:
+  db_data:
+  rabbitmq_data:
+  redis_data:

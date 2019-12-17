@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  proxy:
+    image: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../config/traefik.toml:/etc/traefik/traefik.toml:ro
+      - ../config/acme.json:/acme.json
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: 'Host: monitor.wb.local'
+      traefik.port: 8080

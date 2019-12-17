@@ -1,0 +1,66 @@
+# List of Barong administrators.
+#
+# Other parameters that you can set here can be found in Account,
+# Profile and Phone models (e.g. app/models/account.rb...); all the
+# model properties are listed at the very bottom of this models files.
+#
+# Note: email is the only required field here.
+users:
+  - email: admin@barong.io
+    password: "Chah5YohWm"
+    role: admin
+    state: active
+    level: 3
+
+  - email: philliparuais@gmail.com
+    password: "aikohMai7oh"
+    role: admin
+    state: active
+    level: 3
+
+  - email: antoinepelletier@gmail.com
+    password: "dous8Roh8aang"
+    role: member
+    state: active
+    level: 0
+
+  - email: cecilevaillancourt@gmail.com
+    password: "mooC6yaebie"
+    role: member
+    state: active
+    level: 1
+
+  - email: charmaineouellet@gmail.com
+    password: "aeR2yahquei"
+    role: member
+    state: active
+    level: 2
+
+  - email: ramonlmccourt@gmail.com
+    password: "Ucie8chiepah"
+    role: member
+    state: active
+    level: 3
+
+  - email: amyjbriggs@gmail.com
+    password: "Ahniexa9"
+    role: member
+    state: active
+    level: 3
+
+  - email: davidtmoore@gmail.com
+    password: "Ozeiphib5"
+    role: member
+    state: active
+    level: 3
+
+levels:
+  - key: email
+    value: verified
+    description: "User clicked on the confirmation link"
+  - key: phone
+    value: verified
+    description: "User entered a valid code from sms"
+  - key: document
+    value: verified
+    description: "User personal documents have been verified"
