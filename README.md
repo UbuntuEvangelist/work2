@@ -19,6 +19,7 @@ Workbench is an easy way to start Peatio development environment.
 
 ```sh
 git clone --recursive https://github.com/rubykube/workbench.git
+2.0-light
 ```
 
 2. Move to workbench
